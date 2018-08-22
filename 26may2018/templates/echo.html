@@ -1,0 +1,14 @@
+<script> 
+function yourfun()
+{
+return false;
+}
+</script>
+<form action="/echo" method="POST" onsubmit="yourfun(); return false">
+<input name="text">
+<input type="submit" value="Echo">
+</form>
+ 
+{% if text %}
+  You said: {{ text }}
+{% endif %}

@@ -1,0 +1,53 @@
+<form id="rendered-form">
+	<div class="rendered-form">
+		<div class="row fb-button form-group field-buttonpayment">
+			<button type="button" class="btn btn-primary" name="buttonpayment" value="i have a payment related issue" style="primary" id="buttonpayment" onclick= "click('i have a payment related issue')">Payment Related</button>
+		
+			<button type="button" class="btn btn-success" name="buttoncreditlimit" value="i want to increase my credit limit" style="success" id="buttoncreditlimit" onclick= "click('i want to increase my credit limit')">Credit Limit Increase</button>
+		
+			<button type="button" class="btn btn-warning" name="buttonpin" value="i want to reset my pin" style="warning" id="buttonpin" onclick= "click('i want to reset my pin')">Pin Related</button>
+		
+			<button type="button" class="btn btn-info" name="buttoncardcancel" value="I want to cancel my card" style="info" id="buttoncardcancel" onclick= "click('I want to cancel my card')">Card Cancellation</button>
+
+			<button type="button" class="btn btn-danger" name="buttoncardactivation" value="I want to Activate My card" style="danger" id="buttoncardactivation" onclick= "click('I want to Activate My card')">Card Activation</button>
+		
+			<button type="button" class="btn btn-success" name="buttonapplication" value="What is the status of my Application" style="success" id="buttonapplication" onclick= "click('What is the status of my Application')">Track Application</button>
+		
+			<button type="button" class="btn btn-danger" name="buttonfraud" value="i want to report a Fraud" style="danger" id="buttonfraud" onclick= "click('i want to report a Fraud')">Report a Fraud</button>
+					
+			<button type="button" class="btn btn-info" name="buttontravel" value="I am Travelling Abroad" style="info" id="buttontravel" onclick= "click('I am Travelling Abroad')">Foreign Travel</button>
+		</div>
+	</div>
+</form>
+<script>
+	function click(tb)
+	{
+		
+	alert(tb)
+    var val = "hi";
+    var entry1 = tb;
+
+  var requestBody={text:tb,"last_type":last_type,"last_intent":last_intent,"last_attempt":last_attempt,"attrs":attrs,"prev_valid":prev_valid}
+  console.log(requestBody)
+	
+	$.ajax({
+	url:"/getData",
+	type:"post",
+	data:JSON.stringify(requestBody),
+	dataType:"json",
+	contentType:"application/json",
+	success: function(data){
+		console.log(data)
+		console.log("i am in page")
+			send("BOT",data["rp_val"])
+			console.log("i am in page")
+			attrs=data["attrs"]
+			last_attempt=data["last_attempt"]
+			last_type=data["last_type"]
+			last_intent=data["last_intent"]
+			prev_valid=data["prev_valid"]
+		}
+	});
+}
+	
+</script>

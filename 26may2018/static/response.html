@@ -1,0 +1,15 @@
+<script>
+function remove(res_id)
+{
+document.getElementById(res_id).remove()
+send("BOT","Thank you for the response.")
+}
+</script>
+
+<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+<div id="response" class="response">
+<a href='#' onclick="remove('response')"><i class="em em-smiley" title="Happy"></i></a> &nbsp;&nbsp;&nbsp;
+<a href='#' onclick="remove('response')"><i class="em em-neutral_face" title="neutral"></i></a>&nbsp;&nbsp;&nbsp;
+<a href='#' onclick="remove('response')"><i class="em em-disappointed" title="disappointed"></i></a>&nbsp;&nbsp;&nbsp;
+<a href='#' onclick="remove('response')"><i class="em em-rage" title="Angry"></i></a>&nbsp;&nbsp;&nbsp;
+</div>

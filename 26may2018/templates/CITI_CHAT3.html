@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Ask - Sara</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        
+.col-md-2, .col-md-10{
+    padding:0;
+	
+}
+p{
+width:auto;
+height:auto;
+color:White;
+font-size=14px;
+}
+.panel{
+    margin-bottom: 0px;
+	
+	
+}
+.chat-window{
+    bottom:0;
+	right:0;
+    position:fixed;
+    float:right;
+	
+
+}
+.chat-window > div > .panel{
+    border-radius: 5px 5px 0 0;
+	border-left:1.2px solid gray;
+	
+}
+.icon_minim{
+    padding:3px 10px;
+}
+.msg_container_base{
+  background: #e5e5e5;
+  margin: 0;
+  padding: 0 10px 10px;
+  max-height:850px;
+  overflow-x:hidden;
+}
+.top-bar {
+  background: #666;
+  color: white;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.msg_receive{
+    padding-left:10%;
+    margin-left:10px;
+	background-color:#01478C;
+	border-radius: 15px 15px 15px 0px;
+}
+.msg_sent{
+border-radius: 15px 15px 0px 15px;
+    padding-left:10%
+    padding-bottom:20px !important;
+	padding-right:10
+    margin-right:10;
+	background-color:#FFFFFF;
+}
+.messages {
+  
+  padding: 10px;
+  border:1px solid black;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  max-width:100%;
+  padding-left:30px
+  padding-right:25px
+
+}
+
+.messages > p {
+    font-size: 13px;
+    margin: 0 0 0.2rem 0;
+  }
+.messages > time {
+    font-size: 11px;
+    color: #ccc;
+}
+.msg_container {
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+	background-color:#FFFFFF;
+}
+.chatimg {
+    display: block;
+    width: 80%;
+}
+.avatar {
+    position: relative;
+
+}
+.base_receive {
+
+}
+.base_receive > .avatar:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid white;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.base_sent {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.base_sent > .avatar:after {
+border-radius:15px
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid white;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close
+}
+
+.msg_sent > time{
+    float: right;
+}
+
+
+
+.msg_container_base::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+   
+}
+
+.msg_container_base::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+.msg_container_base::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+.btn-group.dropup{
+    position:fixed;
+    left:0px;
+    bottom:0;
+}
+
+.panel-footer {
+    padding: 10px 15px;
+    background-color: #ADADAD;
+    border-top: 1px solid #ddd;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+	}
+	div.chatopen{
+	position: fixed;
+    bottom: 0px;
+    right:100px;
+	}
+	
+	.input-group-btn {
+    
+    padding-left: 14px;
+}
+
+    </style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+
+<div class="chatopen" >
+	<div class="row">
+        <div class="round hollow text-center" >
+       <h4> <a href="#" id="submit" ><span class="glyphicon glyphicon-comment"></span> Open in chat </a></h4>
+	   
+        </div>
+        
+        <hr>
+       
+	</div>
+</div>
+
+ <div class="container pull-right" id="chatbox">
+    <div class="row chat-window col-xs-5 col-md-3 pull-right" id="chat_window_1">
+        <div class="col-xs-12 col-md-12">
+          <div class="panel panel-default" >
+                <div class="panel-heading top-bar" style="background-color:#1f4d7a">
+                    <div class="col-md-8 col-xs-8">
+						
+                        <h3 class="panel-title" style="font-weight:bold;"><img src="../static/img3.png" class="bot4"></img><font color="white"></font>  </h3>
+						
+						
+                    </div>
+                    <div class="col-md-4 col-xs-4" style="text-align: right;">
+					  <a href="#">  <i class="fa fa-envelope" style="color:white;"></i></a>
+					  <!-- <a href="#"> <span id="minim_chat_window" class="glyphicon glyphicon-phone"></span></a>
+			           <a href="#"> <span id="minim_chat_window" class="glyphicon glyphicon-refresh"></span></a>
+			     -->
+                        <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim" style="color:white;"></span></a>
+                        <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-remove icon_close" style="color:white;" data-id="chat_window_1"></span></a>
+                    </div>
+                </div>
+                <div id="messagebody" class="panel-body msg_container_base" style="border-left:1px solid balck;">
+				
+				          
+		
+		
+                  
+				       
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" class="form-control input-sm chat_input" style="margin-right:20px"; placeholder="Write your message here..." required="required" />
+                        <span class="input-group-btn">
+
+						<button class='btn btn-default btn-sm' id="start-record-btn" style="border-radius:50%; border-color:green;">  <i class="fa fa-microphone"></i></button>
+					     <button class='btn btn-default btn-sm' id="pause-record-btn" style="display:none;border-radius:50%; border-color:green;">  <i class="fa fa-microphone-slash"></i></button>
+                        <button class="btn btn-default btn-sm" id="btn-chat" style="background-color:#1f4d7a; font-weight:bold; color:white;">Send</button>
+                        </span>
+                    </div>
+                </div>
+        </div>
+        </div>
+
+    
+  
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type = "text/javascript" src = "{{ url_for('static', filename = 'js/formfunc15.js') }}" > </script>
+<script type="text/javascript">
+
+
+	var attrs = {"phone":"","account_id":"","last_name":"","score":"","card":"","amount":"","date":"","payment":"","city":"","otp":"","start_date":"","end_date":"","country":"","merchant":"","limit":"","application":""}
+	var last_type=""
+	var last_intent=""
+	var last_attempt=0
+	var prev_valid=0
+	$("#chatbox").hide();
+	$(document).ready(function () {
+    $('#submit').click(function () {
+	$("#chatbox, #chatbox").toggle();
+	
+    });
+});
+
+
+function include_html(file_name)
+{
+$(function () {
+                $.get("../static/"+file_name, function (data) {
+                    $("#messagebody").append(data);
+                });
+				
+				
+            });
+			document.getElementById("btn-input").disabled = true;
+			document.getElementById("btn-chat").disabled = true;
+			console.log("i am out from the demo call");
+
+}
+
+
+
+
+
+
+try {
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var recognition = new SpeechRecognition();
+}
+catch(e) {
+  console.error(e);
+  $('.no-browser-support').show();
+  $('.app').hide();
+}
+
+
+var noteTextarea = $('#note-textarea');
+var instructions = $('#recording-instructions');
+var notesList = $('ul#notes');
+
+var noteContent = '';
+
+
+
+
+/*-----------------------------
+      Voice Recognition 
+------------------------------*/
+
+// If false, the recording will stop after a few seconds of silence.
+// When true, the silence period is longer (about 15 seconds),
+// allowing us to keep recording even when the user pauses. 
+recognition.continuous = true;
+
+// This block is called every time the Speech APi captures a line. 
+recognition.onresult = function(event) {
+
+  // event is a SpeechRecognitionEvent object.
+  // It holds all the lines we have captured so far. 
+  // We only need the current one.
+  var current = event.resultIndex;
+
+  // Get a transcript of what was said.
+  var transcript = event.results[current][0].transcript;
+
+  // Add the current transcript to the contents of our Note.
+  // There is a weird bug on mobile, where everything is repeated twice.
+  // There is no official solution so far so we have to handle an edge case.
+  var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+
+  if(!mobileRepeatBug) {
+    var tb = transcript;
+	//alert(tb)
+	//document.getElementById("btn-input").value=''
+if(tb.trim()!='')
+	{
+	send("me",tb);
+    var val = "hi";
+    var entry1 = tb;
+
+  var requestBody={text:tb,"last_type":last_type,"last_intent":last_intent,"last_attempt":last_attempt,"attrs":attrs,"prev_valid":prev_valid}
+  console.log(requestBody)
+	
+	$.ajax({
+	url:"/getData",
+	type:"post",
+	data:JSON.stringify(requestBody),
+	dataType:"json",
+	contentType:"application/json",
+	success: function(data){
+		console.log(data)
+		console.log("i am in page")
+		/*if(data["rp_val"].includes("answer only limited queries")){
+			console.log("i am in startpage")
+			send("BOT",data["rp_val"])
+			include_html('startpage16.html');}
+		 else if(data["rp_val"].includes("yes/no")){
+			console.log("i am in yes/no")
+			send("BOT",data["rp_val"])
+			include_html('yes_no.html');}
+		else if(data["rp_val"].search("enter the new credit limit") != -1){
+		  console.log("i am in slider")
+			send("BOT",data["rp_val"])
+			include_html('slider5.html');}
+		else if(data["rp_val"].search("date") != -1){
+		  console.log("i am in slider")
+			send("BOT",data["rp_val"])
+			include_html('calendar1.html');}*/
+			
+			if(data['attrs']['form']!=''){
+			console.log(data['attrs']['form'])
+			send("BOT",data["rp_val"]);
+			include_html(data['form']+'.html');
+			attrs=data["attrs"]
+			last_attempt=data["last_attempt"]
+			last_type=data["last_type"]
+			last_intent=data["last_intent"]
+			prev_valid=data["prev_valid"]
+			}
+		else
+			send("BOT",data["rp_val"])
+			console.log("i am in page")
+			attrs=data["attrs"]
+			last_attempt=data["last_attempt"]
+			last_type=data["last_type"]
+			last_intent=data["last_intent"]
+			prev_valid=data["prev_valid"]
+		}
+	});
+}
+
+  }
+};
+
+recognition.onstart = function() { 
+  instructions.text('Voice recognition activated. Try speaking into the microphone.');
+}
+
+recognition.onspeechend = function() {
+  instructions.text('You were quiet for a while so voice recognition turned itself off.');
+}
+
+recognition.onerror = function(event) {
+  if(event.error == 'no-speech') {
+    instructions.text('No speech was detected. Try again.');  
+  };
+}
+
+
+
+/*-----------------------------
+      App buttons and input 
+------------------------------*/
+
+$('#start-record-btn').on('click', function(e) {
+$('#start-record-btn').hide();
+$('#pause-record-btn').show();
+
+  if (noteContent.length) {
+    noteContent += ' ';
+  }
+  recognition.start();
+});
+$('#pause-record-btn').on('click', function(e) {
+
+$('#pause-record-btn').hide();
+$('#start-record-btn').show();
+
+  recognition.stop();
+  instructions.text('Voice recognition paused.');
+});
+
+
+
+
+
+
+
+/*-----------------------------
+      Speech Synthesis 
+------------------------------*/
+
+function readOutLoud(message) {
+	var speech = new SpeechSynthesisUtterance();
+
+  // Set the text and voice attributes.
+	speech.text = message;
+	speech.volume = 1;
+	speech.rate = 1;
+	speech.pitch = 1;
+  
+	window.speechSynthesis.speak(speech);
+}
+
+	
+	
+$(document).on('click', '.panel-heading span.icon_minim', function (e) {
+    var $this = $(this);
+    if (!$this.hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapsed');
+        $this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
+    } else {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapsed');
+        $this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
+    }
+});
+$(document).on('focus', '.panel-footer input.chat_input', function (e) {
+    var $this = $(this);
+    if ($('#minim_chat_window').hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $('#minim_chat_window').removeClass('panel-collapsed');
+        $('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+    }
+});
+$(document).on('click', '#new_chat', function (e) {
+    var size = $( ".chat-window:last-child" ).css("margin-left");
+     size_total = parseInt(size) + 400;
+   
+    var clone = $( "#chat_window_1" ).clone().appendTo( ".container" );
+    clone.css("margin-left", size_total);
+});
+$(document).on('click', '.icon_close', function (e) {
+    //$(this).parent().parent().parent().parent().remove();
+    $( "#chatbox" ).hide();
+});
+
+// send function start
+
+function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+}
+
+function send(type,response1){
+console.log("i am in inside send page")
+	var chat = $("#btn-input").val(); 
+var date = formatAMPM(new Date());
+if (type =="me") {
+    
+var body=	'<div class="row msg_container base_receive">'+
+                        '<div class="col-md-2 col-xs-2 avatar">'+
+                           
+                        '</div>'+
+                        '<div class="col-md-10 col-xs-10">'+
+                            '<div class="messages msg_receive">'+
+                                '<p><font color="white">'+response1+'</font></p>'+
+                                '<p><small>'+date+'</small></p>' +
+                            '</div>'+
+                        '</div>'+
+                    '</div>'
+	
+	
+} else
+{
+var body =                       '<div class="row msg_container base_sent">' +
+						'<div class="col-md-10 col-xs-10 ">' +
+                            '<div class="messages msg_sent">' +
+                                '<p><font color="#01478C">'+ response1 + '</font></p>'+
+                              '<p><small>'+date+'</small></p>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="col-md-2 col-xs-2 avatar">' +
+                            '<img class="chatimg" src="{{ url_for("static", filename="robo3.png") }}" class=" img-responsive ">' +
+                        '</div>' +
+					'</div>';
+}
+$(body).appendTo("#messagebody");
+$('#btn-input').val('');
+$("#messagebody").animate({ scrollTop: $("#messagebody")[0].scrollHeight}, 'slow');
+}
+
+
+// send function end
+
+
+
+
+$( "#btn-chat" ).click(function() {
+	
+	var tb = document.getElementById("btn-input").value;
+	//alert(tb)
+	//document.getElementById("btn-input").value=''
+	
+	
+	if(tb.trim()!='')
+	{
+	send("me",tb);
+    var val = "hi";
+    var entry1 = tb;
+
+  var requestBody={text:tb,"last_type":last_type,"last_intent":last_intent,"last_attempt":last_attempt,"attrs":attrs,"prev_valid":prev_valid}
+  console.log(requestBody)
+	
+	$.ajax({
+	url:"/getData",
+	type:"post",
+	data:JSON.stringify(requestBody),
+	dataType:"json",
+	contentType:"application/json",
+	success: function(data){
+		console.log(data)
+		console.log("i am in page")
+		/*if(data["rp_val"].includes("answer only limited queries")){
+			send("BOT",data["rp_val"])
+			include_html('startpage16.html');}
+		 else if(data["rp_val"].includes("yes/no")){
+			send("BOT",data["rp_val"])
+			include_html('yes_no.html');}
+		else if(data["rp_val"].search("enter the new credit limit") != -1){
+		  console.log("i am in slider")
+			send("BOT",data["rp_val"])
+			include_html('slider5.html');}
+		else if(data["rp_val"].search("date") != -1){
+		  console.log("i am in slider")
+			send("BOT",data["rp_val"])
+			include_html('calendar1.html');}*/
+			if(data['attrs']['form']!=''){
+			send("BOT",data["rp_val"]);
+			include_html(data['attrs']['form']+'.html');
+			attrs=data["attrs"]
+			last_attempt=data["last_attempt"]
+			last_type=data["last_type"]
+			last_intent=data["last_intent"]
+			prev_valid=data["prev_valid"]
+			}
+		else
+			send("BOT",data["rp_val"])
+			console.log("i am in page")
+			attrs=data["attrs"]
+			last_attempt=data["last_attempt"]
+			last_type=data["last_type"]
+			last_intent=data["last_intent"]
+			prev_valid=data["prev_valid"]
+		}
+	});
+}
+
+
+
+
+//send()
+});
+
+$('#btn-input').keypress(function (e) {
+  if (e.which == 13) {
+  var tb = document.getElementById("btn-input").value;
+	if(tb.trim()!='')
+	{
+	send("me",tb);
+    var val = "hi";
+    var entry1 = tb;
+
+  var requestBody={text:tb,"last_type":last_type,"last_intent":last_intent,"last_attempt":last_attempt,"attrs":attrs,"prev_valid":prev_valid}
+  console.log(requestBody)
+	
+	$.ajax({
+	url:"/getData",
+	type:"post",
+	data:JSON.stringify(requestBody),
+	dataType:"json",
+	contentType:"application/json",
+	success: function(data){
+		console.log(data)
+		console.log("i am in page")
+		/*if(data["rp_val"].includes("answer only limited queries")){
+			console.log("i am in startpage")
+			send("BOT",data["rp_val"])
+			include_html('startpage16.html');}
+		 else if(data["rp_val"].includes("yes/no")){
+			console.log("i am in yes/no")
+			send("BOT",data["rp_val"])
+			include_html('yes_no.html');}
+		else if(data["rp_val"].search("enter the new credit limit") != -1){
+		  console.log("i am in slider")
+			send("BOT",data["rp_val"])
+			include_html('slider5.html');}
+		else if(data["rp_val"].search("date") != -1){
+		  console.log("i am in slider")
+			send("BOT",data["rp_val"])
+			include_html('calendar1.html');}*/
+		if(data['attrs']['form']!=''){
+		
+		console.log(data['attrs']['form'])
+			send("BOT",data["rp_val"]);
+			include_html(data['attrs']['form']+'.html');
+			attrs=data["attrs"]
+			last_attempt=data["last_attempt"]
+			last_type=data["last_type"]
+			last_intent=data["last_intent"]
+			prev_valid=data["prev_valid"]
+			}
+		else
+			send("BOT",data["rp_val"])
+			console.log("i am in page")
+			attrs=data["attrs"]
+			last_attempt=data["last_attempt"]
+			last_type=data["last_type"]
+			last_intent=data["last_intent"]
+			prev_valid=data["prev_valid"]
+		}
+	});
+}
+
+
+
+	//send()
+  }
+});
+
+
+
+
+
+</script>

@@ -1,0 +1,91 @@
+<head>
+  <title>fraud form</title>
+  
+</head>
+<script>
+function getdatafraud(id)
+{
+var card=document.getElementById('number-1528198740651').value
+var x=document.getElementById('date-1528198794792').value
+if(x=='')
+{
+alert("date can't be empty. Please choose a valid date")
+return false;
+}
+else
+y=x.split('-')
+var amount=document.getElementById('text-1528198788054').value
+if(amount=='')
+{
+alert("Please enter a valid amount.")
+return false;
+}
+var mer=document.getElementById('text-1528198867652').value
+if(mer=='')
+{
+alert("please enter the merchant name mentioned in the statement.")
+return false;
+}
+var date=y[2]+"-"+y[1]+"-"+y[0]
+//alert(x)
+if(card.length<16)
+{
+alert("card number can not be less than 16 digit")
+return false
+}
+else
+{
+if(date=='')
+{
+alert("Please choose a valid date")
+return false
+}
+else
+{
+data=card+","+date+","+amount+","+mer
+send_fromform(data)
+document.getElementById(id).remove();
+}
+}
+}
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+</script>
+
+<div class="row msg_container base_sent" id="fraudform" style="background-color:white;border:0px;">
+            <div class="col-md-10 col-xs-10" style="background-color:white;border:0px;">
+	<div class="container alert alert-info" style="width:350px;">
+		<h5 id="control-6647416" style="font-weight:bold;  width:350px;">Please Enter Details</h3>
+	</div>
+	<form id="rendered-form">
+
+		<div class="container alert alert-info" style="width:350px;">
+			card Number : <input type="text" placeholder="XXXX XXXX XXXX XXXX" min="1000000000000000" max="9999999999999999" style="width:190px;" class="form-control" name="number-1528198740651" id="number-1528198740651" title="please enter your card number" required="required" aria-required="true" onkeypress="return isNumber(event)">
+	 </div>
+	
+		<div class="container alert alert-info" style="width:350px;">
+			Date: <input type="date" placeholder="Enter date" style="width:190px;" class="form-control" name="date-1528198794792" id="date-1528198794792" title="please enter the date of transaction" required="required" aria-required="true" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+	</div>
+		
+			<div class="container alert alert-info" style="width:350px;">
+			Amount: <input type="text" style="width:190px;" placeholder="Please enter the amount" class="form-control" name="number-1528198788054" id="text-1528198788054" title="Please enter the amount of transaction">
+	
+</div>
+				<div class="container alert alert-info" style="width:350px;">
+					Merchant: <input type="text" placeholder="Please enter merchant name" style="width:190px;" class="form-control" name="text-1528198867652" id="text-1528198867652" title="please enter the name of merchant">
+</div>
+		<div class="container alert alert-light" style="width:350px;">
+	<input type="button" class="btn btn-info" name="button-1528199077227" value="submit" id="buttonfraud" onclick="getdatafraud('fraudform')"></button>
+</div>
+     </form>
+     
+        </div>
+		<div class="col-md-2 col-xs-2 avatar" style="background-color:white;border:0px;">                
+            </div>
+    </div>
